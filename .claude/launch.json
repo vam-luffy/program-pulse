@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "pulse-live", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 5173 },
+    { "name": "pulse-replay", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:replay"], "port": 5173 }
+  ]
+}

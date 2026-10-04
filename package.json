@@ -21,7 +21,8 @@
     "lint": "eslint . && tsc -p watcher/tsconfig.json --noEmit && tsc -p dashboard/tsconfig.json",
     "test": "npm test -w watcher",
     "fixtures": "tsx scripts/fetch-fixtures.ts",
-    "probe": "tsx scripts/probe-solami.ts"
+    "probe": "tsx scripts/probe-solami.ts",
+    "screenshot": "tsx scripts/screenshot.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -29,6 +30,7 @@
     "eslint": "^10.12.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.13.0",
+    "puppeteer-core": "^25.12.0",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.71.0"

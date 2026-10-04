@@ -143,6 +143,25 @@ describe('Aggregator', () => {
     expect(s.series.errorRate.filter((x) => x !== null)).toEqual([1 / 3]);
   });
 
+  it('in sampled feed mode shows decoded samples, not signature-only rows', () => {
+    const c = clock();
+    const agg = new Aggregator([P], {}, c.now);
+    agg.feedDetailedOnly = true;
+    agg.ingest(tx({ ts: c.now(), signature: 'summary', detailed: false, signer: undefined, instructions: undefined }));
+    expect(agg.recentTxs()).toHaveLength(0);
+    agg.enrich(tx({ ts: c.now(), signature: 'sampled' }));
+    expect(agg.recentTxs().map((r) => r.signature)).toEqual(['sampled']);
+    expect(agg.snapshot()[0].window1h.tx).toBe(1); // the sample enriches, it is not counted again
+  });
+
+  it('leaves Anchor event self-CPIs out of the instruction ranking', () => {
+    const c = clock();
+    const agg = new Aggregator([P], {}, c.now);
+    agg.ingest(tx({ ts: c.now(), instructions: [{ programId: P, name: 'buy', inner: false }, { programId: P, name: '(anchor event)', inner: true }] }));
+    expect(agg.snapshot()[0].topInstructions.map((t) => t.name)).toEqual(['buy']);
+    expect(agg.recentTxs()[0].ix).toBe('buy');
+  });
+
   it('drops events older than the 1h window from buckets but still counts totals', () => {
     const c = clock();
     const agg = new Aggregator([P], {}, c.now);

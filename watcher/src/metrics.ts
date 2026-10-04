@@ -243,6 +243,11 @@ export class Aggregator {
   private recent: RecentTx[] = [];
   private recentIndex = new Map<string, RecentTx>();
   readonly startedAt: number;
+  /**
+   * When the source only samples detail (RPC polling), the live feed shows the decoded sample
+   * instead of signature-only rows. Counts and rates still include every transaction.
+   */
+  feedDetailedOnly = false;
 
   constructor(
     programIds: string[],
@@ -263,13 +268,19 @@ export class Aggregator {
       p.count(tx, now);
       if (hasDetail(tx)) p.addDetail(tx, now);
     }
+    if (this.feedDetailedOnly && !tx.detailed) return;
+    this.pushRecent(tx, hits.map((h) => h.programId));
+  }
+
+  private pushRecent(tx: NormalizedTx, programIds: string[]): void {
+    if (this.recentIndex.has(tx.signature)) return;
     const r: RecentTx = {
       signature: tx.signature,
       slot: tx.slot,
       ts: tx.ts,
       success: tx.success,
       error: tx.error,
-      programIds: hits.map((h) => h.programId),
+      programIds,
       signer: tx.signer,
       feeLamports: tx.feeLamports,
       computeUnits: tx.computeUnits,
@@ -289,6 +300,11 @@ export class Aggregator {
     const now = this.now();
     for (const id of tx.programIds) this.programs.get(id)?.addDetail(tx, now);
     const r = this.recentIndex.get(tx.signature);
+    if (!r && this.feedDetailedOnly) {
+      const ids = tx.programIds.filter((p) => this.programs.has(p));
+      if (ids.length) this.pushRecent(tx, ids);
+      return;
+    }
     if (r) {
       r.signer = tx.signer;
       r.feeLamports = tx.feeLamports;

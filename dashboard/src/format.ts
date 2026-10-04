@@ -13,7 +13,8 @@ export const pct = (x: number | null | undefined, digits = 1): string =>
 export const sol = (lamports: number | null | undefined, digits = 6): string =>
   lamports === null || lamports === undefined ? '–' : `${(lamports / 1e9).toFixed(digits)}`;
 
-export const short = (s: string | undefined, a = 4, b = 4): string => (s ? (s.length > a + b + 1 ? `${s.slice(0, a)}…${s.slice(-b)}` : s) : '–');
+export const short = (s: string | undefined, a = 4, b = 4): string =>
+  s ? (s.length > a + b + 1 ? `${s.slice(0, a)}…${b ? s.slice(-b) : ''}` : s) : '–';
 
 export const clock = (ms: number): string => new Date(ms).toLocaleTimeString('en-GB', { hour12: false });
 

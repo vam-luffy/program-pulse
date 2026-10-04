@@ -35,6 +35,7 @@ export class SourceManager {
     private readonly factories: (() => Source)[],
     private readonly sink: TxSink,
     private readonly upgradeIntervalMs = 5 * 60_000,
+    private readonly onActive: (s: Source) => void = () => undefined,
   ) {}
 
   private record(a: SourceAttempt) {
@@ -52,6 +53,7 @@ export class SourceManager {
         this.activeSince = Date.now();
         this.record({ name: src.name, label: src.label, ok: true, at: Date.now() });
         log.info(`ACTIVE SOURCE: ${src.label}`);
+        this.onActive(src);
         if (i > 0 && this.upgradeIntervalMs > 0) this.scheduleUpgrade(i);
         return src;
       } catch (e) {
@@ -81,6 +83,7 @@ export class SourceManager {
             this.activeSince = Date.now();
             this.record({ name: src.name, label: src.label, ok: true, at: Date.now() });
             log.info(`UPGRADED SOURCE: ${old?.label} -> ${src.label}`);
+            this.onActive(src);
             await old?.stop();
             if (i === 0 && this.upgradeTimer) clearInterval(this.upgradeTimer);
             activeIndex = i;

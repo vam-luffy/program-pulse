@@ -140,12 +140,14 @@ function ProgramCard({ p, color, now, alerting }: { p: ProgramSnapshot; color: s
   );
 }
 
-function TxFeed({ txs, labels, colors }: { txs: RecentTx[]; labels: Record<string, string>; colors: Record<string, string> }) {
+function TxFeed({ txs, labels, colors, sampled }: { txs: RecentTx[]; labels: Record<string, string>; colors: Record<string, string>; sampled: boolean }) {
   return (
     <section className="card feed">
       <div className="card-head">
         <span className="section-title">Live transactions</span>
-        <span className="muted small">last {txs.length} · click to open in Solscan</span>
+        <span className="muted small">
+          {sampled ? 'decoded sample (RPC mode) · ' : ''}last {txs.length} · click to open in Solscan
+        </span>
       </div>
       <div className="feed-table">
         <div className="feed-row feed-header">
@@ -155,7 +157,7 @@ function TxFeed({ txs, labels, colors }: { txs: RecentTx[]; labels: Record<strin
           <span>status</span>
           <span>signer</span>
           <span className="num">CU</span>
-          <span className="num">fee</span>
+          <span className="num">fee (lam)</span>
           <span>signature</span>
         </div>
         <div className="feed-body">
@@ -170,8 +172,8 @@ function TxFeed({ txs, labels, colors }: { txs: RecentTx[]; labels: Record<strin
                     {t.programIds.length > 1 ? ` +${t.programIds.length - 1}` : ''}
                   </span>
                 </span>
-                <span className={`mono ${t.ix?.startsWith('0x') || !t.ix ? 'hex' : ''}`} title={!t.ix && t.signer ? 'failed before the watched program was invoked' : undefined}>
-                  {t.ix ?? (t.signer ? 'not reached' : '…')}
+                <span className={`mono ${t.ix?.startsWith('0x') || !t.ix ? 'hex' : ''}`} title={!t.ix && t.signer ? 'program is in the account list but was never executed (e.g. a bot pre-check bailed out)' : undefined}>
+                  {t.ix ?? (t.signer ? 'not invoked' : '…')}
                 </span>
                 <span className={t.success ? 'ok' : 'fail'} title={t.error}>
                   {t.success ? '✓ ok' : `✗ ${t.error ? short(t.error, 18, 0) : 'failed'}`}
@@ -263,7 +265,7 @@ export default function App() {
             ))}
           </div>
           <div className="bottom">
-            <TxFeed txs={snap.recentTxs} labels={labels} colors={colors} />
+            <TxFeed txs={snap.recentTxs} labels={labels} colors={colors} sampled={snap.feed === 'sampled'} />
             <Alerts snap={snap} now={now} />
           </div>
         </main>

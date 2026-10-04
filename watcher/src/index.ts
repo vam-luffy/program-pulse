@@ -71,7 +71,9 @@ async function main() {
   }
   const alerts = new AlertEngine(agg, cfg.alertRules, notifiers, cfg.alertCooldownMs);
   const health = new HealthTracker(pipeline.stats, rpc, cfg.commitment, replaySource ? () => replaySource!.tip : undefined);
-  const manager = new SourceManager(chain, pipeline, replay ? 0 : cfg.grpcUpgradeIntervalMs);
+  const manager = new SourceManager(chain, pipeline, replay ? 0 : cfg.grpcUpgradeIntervalMs, (src) => {
+    agg.feedDetailedOnly = src.name === 'rpc';
+  });
 
   const startedAt = Date.now();
   const snapshot = () => ({
@@ -89,6 +91,7 @@ async function main() {
     health: health.snapshot(),
     programs: agg.snapshot(),
     recentTxs: agg.recentTxs(),
+    feed: agg.feedDetailedOnly ? 'sampled' : 'all',
     alerts: alerts.recent(),
     activeAlerts: alerts.active(),
     rules: cfg.alertRules,

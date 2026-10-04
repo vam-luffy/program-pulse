@@ -79,6 +79,7 @@ export interface Snapshot {
   };
   programs: ProgramSnapshot[];
   recentTxs: RecentTx[];
+  feed: 'all' | 'sampled';
   alerts: AlertEvent[];
   activeAlerts: string[];
   telegram: boolean;

@@ -87,9 +87,16 @@ export class RpcPollSource implements Source {
     if (until) opts.until = until;
     const sigs = await this.o.rpc.call<SigInfo[]>('getSignaturesForAddress', [pid, opts]);
     if (!sigs.length) return;
-    if (until && sigs.length >= 1000) {
+    // Busy programs (Pump.fun peaks >150 tx/s) can exceed 1000 per interval: page back with
+    // `before` until we reach the cursor so counts stay gapless.
+    let page = sigs;
+    for (let i = 0; until && page.length >= 1000 && i < 3; i++) {
+      page = await this.o.rpc.call<SigInfo[]>('getSignaturesForAddress', [pid, { ...opts, before: page[page.length - 1].signature }]);
+      sigs.push(...page);
+    }
+    if (until && page.length >= 1000) {
       this.gaps++;
-      log.warn(`${pid.slice(0, 6)}: 1000+ new signatures in one poll interval; some may be skipped (lower POLL_INTERVAL_MS or use gRPC)`);
+      log.warn(`${pid.slice(0, 6)}: >4000 new signatures in one poll interval; some were skipped (lower POLL_INTERVAL_MS or use gRPC)`);
     }
     this.cursor.set(pid, sigs[0].signature);
     const newest = sigs[0].slot;
@@ -133,7 +140,8 @@ export class RpcPollSource implements Source {
         if (tx) txs.push({ ...tx, signature: s.signature });
       }
     }
-    for (const raw of txs) {
+    // Oldest first, so the newest sampled tx ends up on top of the live feed.
+    for (const raw of txs.slice().reverse()) {
       const tx = fromRpcTx(raw, this.watched, this.o.idl, this.o.clock);
       if (tx && tx.programIds.length) sink.detail(tx);
     }
