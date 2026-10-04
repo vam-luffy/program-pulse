@@ -1,0 +1,622 @@
+{
+ "address": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+ "metadata": {
+  "name": "pump",
+  "version": "0.1.0",
+  "spec": "0.1.0",
+  "note": "Trimmed to instruction names + discriminators for Program Pulse. Source: https://github.com/pump-fun/pump-public-docs/blob/main/idl/pump.json"
+ },
+ "instructions": [
+  {
+   "name": "add_quote_control_mint",
+   "discriminator": [
+    2,
+    14,
+    61,
+    138,
+    170,
+    142,
+    14,
+    95
+   ]
+  },
+  {
+   "name": "add_quote_mint",
+   "discriminator": [
+    111,
+    121,
+    21,
+    56,
+    40,
+    24,
+    94,
+    209
+   ]
+  },
+  {
+   "name": "admin_cto",
+   "discriminator": [
+    125,
+    126,
+    214,
+    134,
+    77,
+    229,
+    188,
+    89
+   ]
+  },
+  {
+   "name": "admin_set_idl_authority",
+   "discriminator": [
+    8,
+    217,
+    96,
+    231,
+    144,
+    104,
+    192,
+    5
+   ]
+  },
+  {
+   "name": "admin_update_token_incentives",
+   "discriminator": [
+    209,
+    11,
+    115,
+    87,
+    213,
+    23,
+    124,
+    204
+   ]
+  },
+  {
+   "name": "buy",
+   "discriminator": [
+    102,
+    6,
+    61,
+    18,
+    1,
+    218,
+    235,
+    234
+   ]
+  },
+  {
+   "name": "buy_exact_quote_in_v2",
+   "discriminator": [
+    194,
+    171,
+    28,
+    70,
+    104,
+    77,
+    91,
+    47
+   ]
+  },
+  {
+   "name": "buy_exact_sol_in",
+   "discriminator": [
+    56,
+    252,
+    116,
+    8,
+    158,
+    223,
+    205,
+    95
+   ]
+  },
+  {
+   "name": "buy_v2",
+   "discriminator": [
+    184,
+    23,
+    238,
+    97,
+    103,
+    197,
+    211,
+    61
+   ]
+  },
+  {
+   "name": "claim_cashback",
+   "discriminator": [
+    37,
+    58,
+    35,
+    126,
+    190,
+    53,
+    228,
+    197
+   ]
+  },
+  {
+   "name": "claim_cashback_v2",
+   "discriminator": [
+    122,
+    243,
+    204,
+    65,
+    94,
+    116,
+    29,
+    55
+   ]
+  },
+  {
+   "name": "claim_token_incentives",
+   "discriminator": [
+    16,
+    4,
+    71,
+    28,
+    204,
+    1,
+    40,
+    27
+   ]
+  },
+  {
+   "name": "close_user_volume_accumulator",
+   "discriminator": [
+    249,
+    69,
+    164,
+    218,
+    150,
+    103,
+    84,
+    138
+   ]
+  },
+  {
+   "name": "collect_creator_fee",
+   "discriminator": [
+    20,
+    22,
+    86,
+    123,
+    198,
+    28,
+    219,
+    132
+   ]
+  },
+  {
+   "name": "collect_creator_fee_v2",
+   "discriminator": [
+    207,
+    17,
+    138,
+    242,
+    4,
+    34,
+    19,
+    56
+   ]
+  },
+  {
+   "name": "create",
+   "discriminator": [
+    24,
+    30,
+    200,
+    40,
+    5,
+    28,
+    7,
+    119
+   ]
+  },
+  {
+   "name": "create_v2",
+   "discriminator": [
+    214,
+    144,
+    76,
+    236,
+    95,
+    139,
+    49,
+    180
+   ]
+  },
+  {
+   "name": "distribute_creator_fees",
+   "discriminator": [
+    165,
+    114,
+    103,
+    0,
+    121,
+    206,
+    247,
+    81
+   ]
+  },
+  {
+   "name": "distribute_creator_fees_v2",
+   "discriminator": [
+    255,
+    203,
+    19,
+    79,
+    244,
+    68,
+    8,
+    159
+   ]
+  },
+  {
+   "name": "distribute_fee_to_holders",
+   "discriminator": [
+    98,
+    54,
+    145,
+    97,
+    2,
+    70,
+    173,
+    43
+   ]
+  },
+  {
+   "name": "extend_account",
+   "discriminator": [
+    234,
+    102,
+    194,
+    203,
+    150,
+    72,
+    62,
+    229
+   ]
+  },
+  {
+   "name": "get_minimum_distributable_fee",
+   "discriminator": [
+    117,
+    225,
+    127,
+    202,
+    134,
+    95,
+    68,
+    35
+   ]
+  },
+  {
+   "name": "init_user_volume_accumulator",
+   "discriminator": [
+    94,
+    6,
+    202,
+    115,
+    255,
+    96,
+    232,
+    183
+   ]
+  },
+  {
+   "name": "initialize",
+   "discriminator": [
+    175,
+    175,
+    109,
+    31,
+    13,
+    152,
+    155,
+    237
+   ]
+  },
+  {
+   "name": "initialize_quote_control",
+   "discriminator": [
+    239,
+    73,
+    245,
+    173,
+    209,
+    177,
+    84,
+    66
+   ]
+  },
+  {
+   "name": "migrate",
+   "discriminator": [
+    155,
+    234,
+    231,
+    146,
+    236,
+    158,
+    162,
+    30
+   ]
+  },
+  {
+   "name": "migrate_bonding_curve_creator",
+   "discriminator": [
+    87,
+    124,
+    52,
+    191,
+    52,
+    38,
+    214,
+    232
+   ]
+  },
+  {
+   "name": "migrate_v2",
+   "discriminator": [
+    187,
+    203,
+    18,
+    31,
+    206,
+    237,
+    254,
+    41
+   ]
+  },
+  {
+   "name": "remove_quote_control_mint",
+   "discriminator": [
+    223,
+    7,
+    253,
+    26,
+    81,
+    165,
+    218,
+    166
+   ]
+  },
+  {
+   "name": "remove_quote_mint",
+   "discriminator": [
+    177,
+    65,
+    223,
+    38,
+    88,
+    209,
+    158,
+    155
+   ]
+  },
+  {
+   "name": "sell",
+   "discriminator": [
+    51,
+    230,
+    133,
+    164,
+    1,
+    127,
+    131,
+    173
+   ]
+  },
+  {
+   "name": "sell_v2",
+   "discriminator": [
+    93,
+    246,
+    130,
+    60,
+    231,
+    233,
+    64,
+    178
+   ]
+  },
+  {
+   "name": "set_creator",
+   "discriminator": [
+    254,
+    148,
+    255,
+    112,
+    207,
+    142,
+    170,
+    165
+   ]
+  },
+  {
+   "name": "set_mayhem_virtual_params",
+   "discriminator": [
+    61,
+    169,
+    188,
+    191,
+    153,
+    149,
+    42,
+    97
+   ]
+  },
+  {
+   "name": "set_metaplex_creator",
+   "discriminator": [
+    138,
+    96,
+    174,
+    217,
+    48,
+    85,
+    197,
+    246
+   ]
+  },
+  {
+   "name": "set_params",
+   "discriminator": [
+    27,
+    234,
+    178,
+    52,
+    147,
+    2,
+    187,
+    141
+   ]
+  },
+  {
+   "name": "set_quote_control_admin",
+   "discriminator": [
+    62,
+    79,
+    161,
+    211,
+    165,
+    170,
+    214,
+    210
+   ]
+  },
+  {
+   "name": "set_reserved_fee_recipients",
+   "discriminator": [
+    111,
+    172,
+    162,
+    232,
+    114,
+    89,
+    213,
+    142
+   ]
+  },
+  {
+   "name": "set_virtual_quote_reserves",
+   "discriminator": [
+    101,
+    135,
+    191,
+    104,
+    9,
+    88,
+    20,
+    96
+   ]
+  },
+  {
+   "name": "sync_user_volume_accumulator",
+   "discriminator": [
+    86,
+    31,
+    192,
+    87,
+    163,
+    87,
+    79,
+    238
+   ]
+  },
+  {
+   "name": "toggle_cashback_enabled",
+   "discriminator": [
+    115,
+    103,
+    224,
+    255,
+    189,
+    89,
+    86,
+    195
+   ]
+  },
+  {
+   "name": "toggle_create_v2",
+   "discriminator": [
+    28,
+    255,
+    230,
+    240,
+    172,
+    107,
+    203,
+    171
+   ]
+  },
+  {
+   "name": "toggle_mayhem_mode",
+   "discriminator": [
+    1,
+    9,
+    111,
+    208,
+    100,
+    31,
+    255,
+    163
+   ]
+  },
+  {
+   "name": "update_buyback_config",
+   "discriminator": [
+    251,
+    224,
+    171,
+    146,
+    160,
+    26,
+    113,
+    233
+   ]
+  },
+  {
+   "name": "update_creator_fee_config",
+   "discriminator": [
+    61,
+    175,
+    160,
+    249,
+    66,
+    66,
+    136,
+    175
+   ]
+  },
+  {
+   "name": "update_global_authority",
+   "discriminator": [
+    227,
+    181,
+    74,
+    196,
+    208,
+    21,
+    97,
+    213
+   ]
+  },
+  {
+   "name": "update_holder_reward_config",
+   "discriminator": [
+    225,
+    252,
+    66,
+    4,
+    199,
+    35,
+    236,
+    16
+   ]
+  }
+ ]
+}

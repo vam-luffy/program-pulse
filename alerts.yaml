@@ -1,0 +1,31 @@
+# Program Pulse alert rules (production defaults).
+# Each rule applies to every watched program unless you list `programs:`.
+# Env overrides: ALERT_ERROR_RATE_PCT, ALERT_ERROR_RATE_WINDOW_MIN, ALERT_SILENCE_MIN,
+#                ALERT_SPIKE_MULTIPLIER, ALERT_SPIKE_BASELINE_MIN, ALERT_COOLDOWN_MIN.
+cooldown_minutes: 10        # re-notify a still-firing alert at most this often
+
+rules:
+  # Failed-transaction share above X% over the last N minutes.
+  # Busy DEX/launchpad programs naturally fail 40-70% (bots, slippage), so tune per program.
+  - type: error_rate
+    threshold_pct: 85
+    window_minutes: 5
+    min_tx: 30              # ignore windows with fewer transactions
+
+  # No transactions at all for N minutes (program halted, stream stuck, or upgrade gone wrong).
+  - type: silence
+    minutes: 3
+
+  # tx/min over the last `window_minutes` >= multiplier x the trailing `baseline_minutes` average.
+  - type: spike
+    multiplier: 3
+    window_minutes: 1
+    baseline_minutes: 15
+    min_tx_per_min: 20
+
+  # Example: a tighter rule for just one program
+  # - type: error_rate
+  #   programs: [JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4]
+  #   threshold_pct: 60
+  #   window_minutes: 2
+  #   min_tx: 50

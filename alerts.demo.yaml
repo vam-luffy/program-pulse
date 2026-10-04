@@ -1,0 +1,17 @@
+# Short windows so every alert type fires within a few minutes of `npm run dev:replay`
+# (replay --chaos pauses the 2nd program at 90-150s and runs the 1st at 4x at 150-210s
+#  of every 4-minute cycle).
+cooldown_minutes: 3
+
+rules:
+  - type: error_rate
+    threshold_pct: 60
+    window_minutes: 1
+    min_tx: 30
+  - type: silence
+    minutes: 0.5
+  - type: spike
+    multiplier: 2.5
+    window_minutes: 0.5
+    baseline_minutes: 1.5
+    min_tx_per_min: 20

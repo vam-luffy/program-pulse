@@ -1,0 +1,63 @@
+{
+  "address": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+  "metadata": {
+    "name": "jupiter",
+    "note": "Minimal IDL for Program Pulse: instruction names only. Discriminators are derived as sha256(\"global:<name>\")[0..8]. Drop in a full Anchor IDL (any version) to replace it."
+  },
+  "instructions": [
+    {
+      "name": "route"
+    },
+    {
+      "name": "route_with_token_ledger"
+    },
+    {
+      "name": "exact_out_route"
+    },
+    {
+      "name": "shared_accounts_route"
+    },
+    {
+      "name": "shared_accounts_route_with_token_ledger"
+    },
+    {
+      "name": "shared_accounts_exact_out_route"
+    },
+    {
+      "name": "route_v2"
+    },
+    {
+      "name": "shared_accounts_route_v2"
+    },
+    {
+      "name": "exact_out_route_v2"
+    },
+    {
+      "name": "shared_accounts_exact_out_route_v2"
+    },
+    {
+      "name": "set_token_ledger"
+    },
+    {
+      "name": "create_open_orders"
+    },
+    {
+      "name": "create_token_account"
+    },
+    {
+      "name": "create_program_open_orders"
+    },
+    {
+      "name": "claim"
+    },
+    {
+      "name": "claim_token"
+    },
+    {
+      "name": "create_token_ledger"
+    },
+    {
+      "name": "close_token"
+    }
+  ]
+}
