@@ -109,6 +109,9 @@ export class ReplaySource implements Source {
       this.tip = this.baseSlot + Math.floor(elapsed / SLOT_MS);
       this.o.clock.observe(this.tip, now);
       sink.slot(this.tip - 1);
+      // A paused program must be fully silent, including other tracks' txs that route through it
+      // (e.g. Jupiter swaps that hop through Pump.fun).
+      const paused = this.o.chaos ? this.tracks.filter((_, ti) => chaosFactor(ti, elapsed) === 0).map((t) => t.programId) : [];
       this.tracks.forEach((track, ti) => {
         const c = cursors[ti];
         const factor = this.o.chaos ? chaosFactor(ti, elapsed) : 1;
@@ -119,8 +122,9 @@ export class ReplaySource implements Source {
           const due = c.loopStart + track.at[c.i];
           if (due > c.virtual) break;
           const src = track.txs[c.i];
-          const tx: NormalizedTx = { ...src, slot: this.tip - 1 - Math.floor(Math.random() * 2), ts: now };
-          sink.tx(tx);
+          if (!paused.some((p) => src.programIds.includes(p))) {
+            sink.tx({ ...src, slot: this.tip - 1 - Math.floor(Math.random() * 2), ts: now });
+          }
           c.i++;
           if (c.i >= track.txs.length) {
             c.i = 0;

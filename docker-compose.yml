@@ -1,0 +1,16 @@
+# docker compose up --build            -> live (needs .env with SOLAMI_API_KEY)
+# docker compose --profile replay up   -> no key needed, replays recorded mainnet txs
+services:
+  pulse:
+    build: .
+    env_file: .env
+    ports: ["8787:8787"]
+    restart: unless-stopped
+
+  pulse-replay:
+    build: .
+    profiles: ["replay"]
+    command: ["node", "watcher/dist/index.js", "--replay", "--chaos", "--alerts", "alerts.demo.yaml"]
+    environment:
+      - PORT=8787
+    ports: ["8788:8787"]
