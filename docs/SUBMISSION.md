@@ -4,7 +4,7 @@ Track: "Build something live on Solana data" (Superteam Earn, Solami). Deadline 
 
 ## Links
 - Repo (public, MIT): https://github.com/vam-luffy/program-pulse
-- Demo video (2-3 min, live mainnet): (to add)
+- Demo video (2:15, live mainnet, RPC fallback on Free tier): https://youtu.be/9Sue2f8efY8
 - Author: Vamshith S Bangera, GitHub vam-luffy, X @vamshith_ban, Telegram @Monkey_D_Luffy3898
 
 ## Project name
